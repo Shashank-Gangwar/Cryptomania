@@ -1,0 +1,119 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { SingleCoin } from "../config/api";
+import { CryptoState } from "../store/CryptoContext";
+import CoinChart from "../components/CoinChart";
+import CoinDetails from "../components/CoinDetails";
+import { numberWithCommas } from "../components/CoinsList";
+
+const SingleCoinPage = () => {
+  const { id } = useParams();
+  const [coin, setCoin] = useState([]);
+  const { currency, symbol } = CryptoState();
+
+  const profit = coin?.market_data?.price_change_percentage_24h > 0;
+
+  const fetchCoin = async () => {
+    // setLoading(true);
+    console.log(id);
+    const { data } = await axios.get(SingleCoin(id));
+    console.log(data);
+
+    setCoin(data);
+    // setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchCoin();
+  }, [currency]);
+  return (
+    <>
+      <div class="col-lg-8 mx-4  py-5 coinTopDetail ">
+        <div className="position-relative coinImg me-4 d-none d-md-block">
+          <img
+            src={coin?.image?.large}
+            alt="twbs"
+            height="150"
+            width="150"
+            className="flex-shrink-0 my-0 position-relative "
+          />
+          <span class="position-absolute top-100 start-50   translate-middle badge  bg-dark fs-6 px-2 py-1">
+            #{coin?.market_cap_rank}
+          </span>
+        </div>
+        <div className=" d-flex flex-column justify-content-center">
+          <div className="d-flex">
+            <div className="position-relative  d-md-none me-3">
+              <img
+                src={coin?.image?.large}
+                alt="twbs"
+                height="80"
+                width="80"
+                className="flex-shrink-0 my-0 position-relative "
+              />
+              <span class="position-absolute top-100 start-50   translate-middle badge  bg-dark fs-7 px-1 py-1">
+                #{coin?.market_cap_rank}
+              </span>
+            </div>
+            <div>
+              <h1 class="">{coin?.name}</h1>
+              <div className="d-flex">
+                <span
+                  href="#"
+                  className="btn btn-outline-secondary d-none d-md-block"
+                >
+                  {coin?.symbol?.toUpperCase()}
+                  {currency} ● Coingecko
+                </span>
+
+                <span href="#" className="btn btn-outline-secondary d-md-none">
+                  {coin?.symbol?.toUpperCase()}
+                </span>
+                <span className="ms-2 btn btn-outline-success">⬤</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="d-lg-flex ms-2 ms-md-0">
+            <div>
+              <h1 className=" my-0 mt-3 ">
+                {numberWithCommas(
+                  coin?.market_data?.current_price[currency.toLowerCase()]
+                )}
+                <span className="fs-6">{currency}</span>
+              </h1>
+              <span className="fs-6 text-secondary ">
+                As of today at 11:30 UTC+5.5
+              </span>
+            </div>
+            <div className=" d-flex align-items-center ms-lg-3 pb-3 fs-5 mt-2 mt-xs-4 ">
+              <span
+                className="me-3"
+                style={{ color: profit > 0 ? "rgb(14, 203, 129)" : "red" }}
+              >
+                {profit && "+"}
+                {numberWithCommas(
+                  coin?.market_data?.price_change_24h_in_currency[
+                    currency.toLowerCase()
+                  ]
+                )}
+              </span>
+              <span style={{ color: profit > 0 ? "rgb(14, 203, 129)" : "red" }}>
+                {profit && "+"}
+                {coin?.market_data?.price_change_percentage_24h?.toFixed(
+                  2
+                )}%{" "}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="col-12  mb-5 mt-0" />
+      <CoinChart coin={coin} />
+      <CoinDetails coin={coin} />
+    </>
+  );
+};
+
+export default SingleCoinPage;
