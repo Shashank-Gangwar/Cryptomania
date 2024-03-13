@@ -10,14 +10,11 @@ a{
   color: black;
 }
 
-.profit{
-  color: rgb(61, 202, 105);
-  font-weight: 600;
-}
-
-.loss{
-  color:red;
-  font-weight: 600;
+.mySpinner{
+  display: flex;
+  justify-content: center;
+  margin-top: 20vh;
+  height: 80vh;
 }
 
 .currency{

@@ -1,23 +1,42 @@
 .coinChart{
     width: 100%;
-    height: 80vh;
-    border: 1px solid black;
+    height: 50vh;
+    /* border: 1px solid black; */
+    padding: 0 3vmin;
+    display: flex;
+    justify-content: center;
 }
 
-.chartTime{
-    margin-top: 10px;
+
+.chartDate{
     display: flex;
     justify-content: space-evenly;
-    overflow:auto;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 4vmin;
+    margin: 0 1vmin;
 }
 
-.chartTime label{
+.aboveClass{
     display: flex;
-    margin: 0 10px;
-    flex-direction: column;
-    justify-content: center;
-    height: 8vmin;
-    width: 20vmin;
-    border-radius: 2vmin;
-    
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5vw;
+    margin-bottom: 2vmin;
+
 }
+
+.aboveClass select{
+    width: 35vmin;
+    max-width: 200px;
+    font-size: 1rem;
+}
+
+.aboveClass h2{
+    font-size: 4vmin;
+}
+
+
+
+
+

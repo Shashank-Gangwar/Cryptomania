@@ -1,9 +1,5 @@
 import { Link } from "react-router-dom";
-import { CryptoState } from "../store/CryptoContext";
-
-export function numberWithCommas(x) {
-  return x;
-}
+import { CryptoState, numberWithCommas } from "../store/CryptoContext";
 
 const CoinsList = ({ coin }) => {
   const { symbol } = CryptoState();

@@ -1,35 +1,41 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { SingleCoin } from "../config/api";
-import { CryptoState } from "../store/CryptoContext";
+import { HistoricalChart, SingleCoin } from "../config/api";
+import { CryptoState, numberWithCommas } from "../store/CryptoContext";
 import CoinChart from "../components/CoinChart";
 import CoinDetails from "../components/CoinDetails";
-import { numberWithCommas } from "../components/CoinsList";
 
 const SingleCoinPage = () => {
   const { id } = useParams();
   const [coin, setCoin] = useState([]);
+  const [fetching, setFetching] = useState(false);
   const { currency, symbol } = CryptoState();
 
   const profit = coin?.market_data?.price_change_percentage_24h > 0;
 
   const fetchCoin = async () => {
-    // setLoading(true);
+    setFetching(true);
     console.log(id);
     const { data } = await axios.get(SingleCoin(id));
     console.log(data);
 
     setCoin(data);
-    // setLoading(false);
+    setFetching(false);
   };
 
   useEffect(() => {
     fetchCoin();
   }, [currency]);
-  return (
+  return fetching ? (
+    <div className="mySpinner">
+      <div class="spinner-border text-dark">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  ) : (
     <>
-      <div class="col-lg-8 mx-4  py-5 coinTopDetail ">
+      <div className="col-lg-8 mx-4  py-5 coinTopDetail ">
         <div className="position-relative coinImg me-4 d-none d-md-block">
           <img
             src={coin?.image?.large}
@@ -38,7 +44,7 @@ const SingleCoinPage = () => {
             width="150"
             className="flex-shrink-0 my-0 position-relative "
           />
-          <span class="position-absolute top-100 start-50   translate-middle badge  bg-dark fs-6 px-2 py-1">
+          <span className="position-absolute top-100 start-50   translate-middle badge  bg-dark fs-6 px-2 py-1">
             #{coin?.market_cap_rank}
           </span>
         </div>
@@ -52,12 +58,12 @@ const SingleCoinPage = () => {
                 width="80"
                 className="flex-shrink-0 my-0 position-relative "
               />
-              <span class="position-absolute top-100 start-50   translate-middle badge  bg-dark fs-7 px-1 py-1">
+              <span className="position-absolute top-100 start-50   translate-middle badge  bg-dark fs-7 px-1 py-1">
                 #{coin?.market_cap_rank}
               </span>
             </div>
             <div>
-              <h1 class="">{coin?.name}</h1>
+              <h1 className="">{coin?.name}</h1>
               <div className="d-flex">
                 <span
                   href="#"
@@ -69,6 +75,7 @@ const SingleCoinPage = () => {
 
                 <span href="#" className="btn btn-outline-secondary d-md-none">
                   {coin?.symbol?.toUpperCase()}
+                  {currency}
                 </span>
                 <span className="ms-2 btn btn-outline-success">⬤</span>
               </div>
@@ -89,17 +96,18 @@ const SingleCoinPage = () => {
             </div>
             <div className=" d-flex align-items-center ms-lg-3 pb-3 fs-5 mt-2 mt-xs-4 ">
               <span
-                className="me-3"
-                style={{ color: profit > 0 ? "rgb(14, 203, 129)" : "red" }}
+                className="me-3 fw-bold"
+                style={{ color: profit > 0 ? "#089981" : "red" }}
               >
                 {profit && "+"}
-                {numberWithCommas(
-                  coin?.market_data?.price_change_24h_in_currency[
-                    currency.toLowerCase()
-                  ]
-                )}
+                {coin?.market_data?.price_change_24h_in_currency[
+                  currency.toLowerCase()
+                ].toFixed(2)}
               </span>
-              <span style={{ color: profit > 0 ? "rgb(14, 203, 129)" : "red" }}>
+              <span
+                className="fw-bold"
+                style={{ color: profit > 0 ? "#089981" : "red" }}
+              >
                 {profit && "+"}
                 {coin?.market_data?.price_change_percentage_24h?.toFixed(
                   2
@@ -109,8 +117,8 @@ const SingleCoinPage = () => {
           </div>
         </div>
       </div>
-      <hr class="col-12  mb-5 mt-0" />
-      <CoinChart coin={coin} />
+      <hr className="col-12  mb-5 mt-0" />
+      <CoinChart id={id} coin={coin} />
       <CoinDetails coin={coin} />
     </>
   );

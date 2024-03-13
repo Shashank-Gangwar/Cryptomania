@@ -3,8 +3,7 @@ import { TrendingCoins } from "../config/api";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { CryptoState } from "../store/CryptoContext";
-import { numberWithCommas } from "./CoinsList";
+import { CryptoState, numberWithCommas } from "../store/CryptoContext";
 
 const Carousel = () => {
   const [trending, setTrending] = useState([]);

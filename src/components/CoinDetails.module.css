@@ -2,26 +2,32 @@
     width: 100%;
 }
 
-.stat{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-
+.keyStats h3{
+    margin-bottom: 1vmin;
+    font-size:medium;
 
 }
 
-.stat li{
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid black;
-    list-style-type: none;
-    margin: 4vmin 10vmin;
-
-
+.keyStats p{
+    font-size:x-large;
+    font-weight: 400;
 }
 
+.keyStats small{
+    font-size:small;
+    margin-left: 4px;
+}
+
+.about h3{
+    margin-bottom: 1vmin;
+    font-size:medium;
+}
+
+.about a{
+    color: rgb(26, 39, 183);
+    font-size:x-large;
+    font-weight: 400;
+}
 
 
 
