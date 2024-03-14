@@ -1,10 +1,59 @@
+import { useState } from "react";
+import { CryptoState } from "../store/CryptoContext";
+import { Link } from "react-router-dom";
+
 const SearchBar = () => {
+  const [input, setInput] = useState("");
+  const [items, setItems] = useState([]);
+  const { coinsListData, symbol } = CryptoState();
+  console.log(coinsListData);
+  const searchData = (value) => {
+    const results = coinsListData.filter((coin) => {
+      return value && coin && coin.id.includes(value);
+    });
+    setItems(results);
+  };
+
+  const handleChange = (value) => {
+    setInput(value);
+    searchData(value);
+  };
+
   return (
-    <input
-      type="text"
-      className="heroSearch"
-      placeholder="Search Bitcoin here"
-    />
+    <>
+      <div className="position-relative">
+        <input
+          type="text"
+          className="heroSearch "
+          placeholder="Search Bitcoin here"
+          value={input}
+          onChange={(e) => handleChange(e.target.value)}
+        />
+        <div className="position-absolute top-100 start-50 translate-middle-x bg-light heroSearchResults">
+          {items.map((coin) => (
+            <Link
+              to={`/coin/${coin.id}`}
+              className="d-flex align-items-center justify-content-between resultItem"
+            >
+              <div className="d-flex align-items-center">
+                <img
+                  src={coin?.image}
+                  alt=""
+                  width="25"
+                  height="25"
+                  className="me-2"
+                />
+                <span>{coin?.name}</span>
+              </div>
+              <div className="d-sm-block d-none">
+                {symbol}
+                {coin?.current_price}
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 

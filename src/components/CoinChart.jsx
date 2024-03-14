@@ -36,14 +36,12 @@ const CoinChart = ({ id, coin }) => {
   const { currency } = CryptoState();
 
   const percent = {
-    "1d": coin?.market_data?.price_change_percentage_24h.toFixed(3),
-    "7d": coin?.market_data?.price_change_percentage_7d.toFixed(3),
-    "30d": coin?.market_data?.price_change_percentage_30d.toFixed(3),
-    "200d": coin?.market_data?.price_change_percentage_200d.toFixed(3),
-    "1y": coin?.market_data?.price_change_percentage_1y.toFixed(3),
+    1: coin?.market_data?.price_change_percentage_24h.toFixed(3),
+    7: coin?.market_data?.price_change_percentage_7d.toFixed(3),
+    30: coin?.market_data?.price_change_percentage_30d.toFixed(3),
+    200: coin?.market_data?.price_change_percentage_200d.toFixed(3),
+    365: coin?.market_data?.price_change_percentage_1y.toFixed(3),
   };
-
-  console.log(percent["1d"]);
 
   const fetchHistoricData = async () => {
     setFetching(true);
@@ -68,157 +66,155 @@ const CoinChart = ({ id, coin }) => {
     // The end gradient point is at x=220, y=0
     const gradient = ctx.createLinearGradient(0, 150, 0, 300);
     // Add three color stops
-    gradient.addColorStop(
-      0,
-      coin?.market_data?.price_change_percentage_24h > 0 ? "#89DBCD" : "#FF8C8C"
-    );
+    gradient.addColorStop(0, percent[days] > 0 ? "#89DBCD" : "#FF8C8C");
     gradient.addColorStop(1, "white");
     return gradient;
   };
-  console.log(coin);
 
-  return fetching ? (
-    <div class="card" aria-hidden="true">
-      <div class="card-body">
-        <h5 class="card-title placeholder-glow row d-flex justify-content-center">
-          <span class="placeholder col-10 py-5 fs-1">l</span>
-          <span class="placeholder col-10 py-5 fs-1">l</span>
-        </h5>
-      </div>
-    </div>
-  ) : (
+  return (
     <>
       <div className={` ${style.aboveClass}`}>
-        <h2 className="">ETHINR Chart{">"}</h2>
-        <select defaultValue={"2"} className="d-flex d-md-none form-select  ">
+        <select
+          value={days}
+          onChange={(event) => {
+            setDays(event.target.value), console.log(event.target.value);
+          }}
+          className="d-flex d-md-none form-select  "
+        >
           <option value="1">24 hr</option>
-          <option value="2">7 Days</option>
-          <option value="3">1 Month</option>
-          <option value="4">6 Month</option>
-          <option value="5">1 Year</option>
+          <option value="7">7 Days</option>
+          <option value="30">1 Month</option>
+          <option value="200">6 Month</option>
+          <option value="365">1 Year</option>
         </select>
       </div>
-      <div className={style.coinChart}>
-        <Line
-          id="canvas"
-          data={{
-            labels: Object.values(historicData).map((coin) => {
-              let date = new Date(coin[0]);
-              let time = `${date.getHours()}:${date.getMinutes()}`;
-              return days === 1 ? time : date.toLocaleDateString();
-            }),
-            datasets: [
-              {
-                fill: true,
-                data: Object.values(historicData).map((coin) => {
-                  return coin[1];
-                }),
-                label: ``,
-                borderColor:
-                  coin?.market_data?.price_change_percentage_24h > 0
-                    ? "#089981"
-                    : "#FE4040",
-                backgroundColor: getGradeint,
-                yAxisID: "yaxisLabels",
-                xAxisID: "xaxisLabels",
-              },
-            ],
-          }}
-          options={{
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              yaxisLabels: {
-                position: "right",
-                grid: { display: false },
+      {fetching ? (
+        <p class="placeholder-glow d-flex justify-content-center">
+          <span
+            class="placeholder col-12 bg-success"
+            style={{ width: "80%", height: "50vh" }}
+          ></span>
+        </p>
+      ) : (
+        <div className={style.coinChart}>
+          <Line
+            id="canvas"
+            data={{
+              labels: Object.values(historicData).map((coin) => {
+                let date = new Date(coin[0]);
+                let time = `${date.getHours()}:${date.getMinutes()}`;
+                return days === 1 ? time : date.toLocaleDateString();
+              }),
+              datasets: [
+                {
+                  fill: true,
+                  data: Object.values(historicData).map((coin) => {
+                    return coin[1];
+                  }),
+                  label: ``,
+                  borderColor: percent[days] > 0 ? "#089981" : "#FE4040",
+                  backgroundColor: getGradeint,
+                  yAxisID: "yaxisLabels",
+                  xAxisID: "xaxisLabels",
+                },
+              ],
+            }}
+            options={{
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                yaxisLabels: {
+                  position: "right",
+                  grid: { display: false },
 
-                // ticks: { display: false },
-                // display: false,
-              },
-              xaxisLabels: {
-                grid: { display: false },
-                ticks: {
-                  autoSkip: true,
-                  maxRotation: 20,
-                  minRotation: 20,
+                  // ticks: { display: false },
+                  // display: false,
+                },
+                xaxisLabels: {
+                  grid: { display: false },
+                  ticks: {
+                    autoSkip: true,
+                    maxRotation: 20,
+                    minRotation: 20,
+                  },
                 },
               },
-            },
-            elements: {
-              point: {
-                radius: 0,
-              },
-            },
-            plugins: {
-              legend: {
-                position: "top",
-                labels: {
-                  boxWidth: 0,
+              elements: {
+                point: {
+                  radius: 0,
                 },
               },
-            },
-          }}
-        />
-      </div>
+              plugins: {
+                legend: {
+                  position: "top",
+                  labels: {
+                    boxWidth: 0,
+                  },
+                },
+              },
+            }}
+          />
+        </div>
+      )}
       <div className=" d-none d-md-flex justify-content-around mt-4 ">
         <div
           onClick={() => setDays(1)}
-          className={`btn ${days === 1 ? "active" : "a"}  btn-light ${
+          className={`btn ${days === 1 && "active"}  btn-light ${
             style.chartDate
           }`}
         >
           <span>Today</span>
-          <span style={{ color: percent["1d"] > 0 ? "#089981" : "red" }}>
-            {percent["1d"] > 0 && "+"}
-            {percent["1d"]}%
+          <span style={{ color: percent[1] > 0 ? "#089981" : "red" }}>
+            {percent[1] > 0 && "+"}
+            {percent[1]}%
           </span>
         </div>
         <div
           onClick={() => setDays(7)}
-          className={`btn ${days === 7 ? "active" : "a"}  btn-light ${
+          className={`btn ${days === 7 && "active"}  btn-light ${
             style.chartDate
           }`}
         >
           <span>1 Week</span>
-          <span style={{ color: percent["7d"] > 0 ? "#089981" : "red" }}>
-            {percent["7d"] > 0 && "+"}
-            {percent["7d"]}%
+          <span style={{ color: percent[7] > 0 ? "#089981" : "red" }}>
+            {percent[7] > 0 && "+"}
+            {percent[7]}%
           </span>
         </div>
         <div
           onClick={() => setDays(30)}
-          className={`btn ${days === 30 ? "active" : "a"} btn-light ${
+          className={`btn ${days === 30 && "active"} btn-light ${
             style.chartDate
           }`}
         >
           <span>1 Month</span>
-          <span style={{ color: percent["30d"] > 0 ? "#089981" : "red" }}>
-            {percent["30d"] > 0 && "+"}
-            {percent["30d"]}%
+          <span style={{ color: percent[30] > 0 ? "#089981" : "red" }}>
+            {percent[30] > 0 && "+"}
+            {percent[30]}%
           </span>
         </div>
         <div
           onClick={() => setDays(200)}
-          className={`btn ${days === 200 ? "active" : "a"}  btn-light ${
+          className={`btn ${days === 200 && "active"}  btn-light ${
             style.chartDate
           }`}
         >
           <span>6 Month</span>
-          <span style={{ color: percent["200d"] > 0 ? "#089981" : "red" }}>
-            {percent["200d"] > 0 && "+"}
-            {percent["200d"]}%
+          <span style={{ color: percent[200] > 0 ? "#089981" : "red" }}>
+            {percent[200] > 0 && "+"}
+            {percent[200]}%
           </span>
         </div>
         <div
           onClick={() => setDays(365)}
-          className={`btn ${days === 365 ? "active" : "a"}  btn-light ${
+          className={`btn ${days === 365 && "active"}  btn-light ${
             style.chartDate
           }`}
         >
           <span>1 Year</span>
-          <span style={{ color: percent["1y"] > 0 ? "#089981" : "red" }}>
-            {percent["1y"] > 0 && "+"}
-            {percent["1y"]}%
+          <span style={{ color: percent[365] > 0 ? "#089981" : "red" }}>
+            {percent[365] > 0 && "+"}
+            {percent[365]}%
           </span>
         </div>
       </div>

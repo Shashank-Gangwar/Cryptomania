@@ -2,19 +2,19 @@ import { Link } from "react-router-dom";
 import CoinsList from "./CoinsList";
 import { useEffect, useState } from "react";
 import { CoinList } from "../config/api";
-import axios from "axios";
+
 import { CryptoState } from "../store/CryptoContext";
+import axios from "axios";
 
 const MarketCap = () => {
   const [coins, setCoins] = useState([]);
-  const { currency } = CryptoState();
+  const { currency, setCoinsListData } = CryptoState();
 
   const fetchCoins = async () => {
     // setLoading(true);
     const { data } = await axios.get(CoinList(currency));
-    console.log(data.slice(0, 10));
-
     setCoins(data);
+    setCoinsListData(data);
     // setLoading(false);
   };
 

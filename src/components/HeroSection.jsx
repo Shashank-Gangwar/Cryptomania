@@ -4,7 +4,7 @@ import SearchBar from "./SearchBar";
 
 const HeroSection = () => {
   return (
-    <div className=" bg-dark text-center heroSection">
+    <div className=" bg-black text-center heroSection">
       <HeroHeading />
       <SearchBar />
       <Carousel />

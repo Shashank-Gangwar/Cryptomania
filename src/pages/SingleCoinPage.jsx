@@ -34,7 +34,7 @@ const SingleCoinPage = () => {
       </div>
     </div>
   ) : (
-    <>
+    <div className="singleCoinPage">
       <div className="col-lg-8 mx-4  py-5 coinTopDetail ">
         <div className="position-relative coinImg me-4 d-none d-md-block">
           <img
@@ -77,7 +77,7 @@ const SingleCoinPage = () => {
                   {coin?.symbol?.toUpperCase()}
                   {currency}
                 </span>
-                <span className="ms-2 btn btn-outline-success">⬤</span>
+                <span className="ms-2 btn btn-outline-success ">⬤</span>
               </div>
             </div>
           </div>
@@ -91,7 +91,8 @@ const SingleCoinPage = () => {
                 <span className="fs-6">{currency}</span>
               </h1>
               <span className="fs-6 text-secondary ">
-                As of today at 11:30 UTC+5.5
+                As of today at {new Date(coin?.last_updated).getHours()}:
+                {new Date(coin?.last_updated).getMinutes()} UTC+5.30
               </span>
             </div>
             <div className=" d-flex align-items-center ms-lg-3 pb-3 fs-5 mt-2 mt-xs-4 ">
@@ -117,10 +118,10 @@ const SingleCoinPage = () => {
           </div>
         </div>
       </div>
-      <hr className="col-12  mb-5 mt-0" />
+      <hr className="col-12 mt-0" />
       <CoinChart id={id} coin={coin} />
       <CoinDetails coin={coin} />
-    </>
+    </div>
   );
 };
 

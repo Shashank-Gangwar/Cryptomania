@@ -4,7 +4,7 @@ import { CryptoState } from "../store/CryptoContext";
 const NavBar = () => {
   const { currency, setCurrency } = CryptoState();
   return (
-    <header className="d-flex flex-wrap justify-content-between py-3 bg-black">
+    <header className="d-flex flex-wrap justify-content-between py-3 bg-black fixed-top">
       <div>
         <a href="/" className="d-flex align-items-center mb-3 mb-md-0 ">
           <span className="ms-3 fs-4 text-white">CryptoMania</span>

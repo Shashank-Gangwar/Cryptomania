@@ -46,9 +46,8 @@ a{
   width: 100%;
   height: 100vh;
   padding-top: 15vh;
-  background-image: url(/public/heroImage.jpg);
-  background-size:cover;
-  background-repeat: none;
+  /* background-image: url(/public/heroImage.jpg); */
+  background-color: white;
 
 }
 
@@ -64,14 +63,47 @@ a{
                     linear-gradient(to right, rgb(235, 38, 38), rgb(120, 13, 235));
   background-origin: border-box;
   background-clip: padding-box, border-box;
-  margin-bottom: 10vmin;
+  cursor:default;
+  
+}
 
+.heroSearch:focus{
+  outline: none;
+}
+
+.heroSearch:hover{
+  box-shadow: 0px 0px 8px rgb(255, 48, 48);
+}
+
+
+.heroSearchResults{
+  width: 80vmin;
+  margin-top: 1rem;
+  max-height: 300px;
+  border-radius: 10px;
+  background-color: white;
+  overflow-y:scroll;
+  position: relative;
+  z-index: 2;
+}
+.resultItem{
+  font-size: 25px;
+  text-align: left;
+  border-radius: 5px;
+  height: 50px;
+  margin: 0px 20px;
+  margin-top: 10px;
+}
+
+.resultItem:hover{
+  background-color: rgb(210, 210, 210);
 }
 
 .myCarousel{
   padding: 2vmin 4vmin;
 }
 .carouselItem{
+  margin-top: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -87,8 +119,8 @@ a{
 
 @media screen and (max-width: 600px) {
   .heroSection{
-    height: 88vh;
-    padding-top: 10vh;
+    height: 100vh;
+    padding-top: 15vh;
   }
   .footer{
     flex-direction: column;
@@ -121,6 +153,12 @@ a{
 
 
 /*--------------coin page------------*/
+
+.singleCoinPage{
+  width: 100%;
+  margin-top: 10vh;
+}
+
 
 .coinTopDetail{
   display: flex;

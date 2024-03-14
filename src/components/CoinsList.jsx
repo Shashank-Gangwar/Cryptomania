@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
-import { CryptoState, numberWithCommas } from "../store/CryptoContext";
+import {
+  CryptoState,
+  numberWithCommas,
+  roundOff,
+} from "../store/CryptoContext";
 
 const CoinsList = ({ coin }) => {
   const { symbol } = CryptoState();
@@ -7,7 +11,7 @@ const CoinsList = ({ coin }) => {
   return (
     <div className="list-group mx-3 listItem mb-1 ">
       <Link
-        to="/"
+        to={`/coin/${coin.id}`}
         className="list-group-item list-group-item-action d-flex gap-3 py-3"
       >
         <img
@@ -29,7 +33,10 @@ const CoinsList = ({ coin }) => {
           </div>
           <div className="d-flex justify-content-between align-items-center flex-row-reverse coinStats">
             <div className="d-none d-md-block">
-              <p className=" text-nowrap mb-0">{symbol}3142.2M</p>
+              <p className=" text-nowrap mb-0">
+                {symbol}
+                {roundOff(coin?.market_cap)}
+              </p>
             </div>
             <div className="d-flex flex-column justify-content-center align-items-center">
               <p className="text-nowrap mb-1">
