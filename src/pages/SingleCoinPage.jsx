@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { HistoricalChart, SingleCoin } from "../config/api";
+import { SingleCoin } from "../config/api";
 import { CryptoState, numberWithCommas } from "../store/CryptoContext";
 import CoinChart from "../components/CoinChart";
 import CoinDetails from "../components/CoinDetails";
@@ -9,19 +9,24 @@ import CoinDetails from "../components/CoinDetails";
 const SingleCoinPage = () => {
   const { id } = useParams();
   const [coin, setCoin] = useState([]);
+  const [errorCode, setErrorCode] = useState(-1);
   const [fetching, setFetching] = useState(false);
-  const { currency, symbol } = CryptoState();
+  const { currency } = CryptoState();
 
   const profit = coin?.market_data?.price_change_percentage_24h > 0;
 
   const fetchCoin = async () => {
     setFetching(true);
-    console.log(id);
-    const { data } = await axios.get(SingleCoin(id));
-    console.log(data);
-
-    setCoin(data);
-    setFetching(false);
+    try {
+      const { data } = await axios.get(SingleCoin(id));
+      setCoin(data);
+      console.log(data);
+      setErrorCode(-1);
+    } catch (error) {
+      setErrorCode(error.message);
+    } finally {
+      setFetching(false);
+    }
   };
 
   useEffect(() => {
@@ -29,10 +34,12 @@ const SingleCoinPage = () => {
   }, [currency]);
   return fetching ? (
     <div className="mySpinner">
-      <div class="spinner-border text-dark">
-        <span class="visually-hidden">Loading...</span>
+      <div className="spinner-border text-dark">
+        <span className="visually-hidden">Loading...</span>
       </div>
     </div>
+  ) : errorCode !== -1 ? (
+    <div className="errorMsg"> {errorCode}</div>
   ) : (
     <div className="singleCoinPage">
       <div className="col-lg-8 mx-4  py-5 coinTopDetail ">

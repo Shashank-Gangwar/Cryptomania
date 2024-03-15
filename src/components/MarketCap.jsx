@@ -1,26 +1,26 @@
 import { Link } from "react-router-dom";
-import CoinsList from "./CoinsList";
 import { useEffect, useState } from "react";
 import { CoinList } from "../config/api";
 
 import { CryptoState } from "../store/CryptoContext";
 import axios from "axios";
+import TrendingCoins from "./TrendingCoins";
 
 const MarketCap = () => {
   const [coins, setCoins] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { currency, setCoinsListData } = CryptoState();
 
   const fetchCoins = async () => {
-    // setLoading(true);
+    setLoading(true);
     const { data } = await axios.get(CoinList(currency));
     setCoins(data);
     setCoinsListData(data);
-    // setLoading(false);
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchCoins();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currency]);
 
   return (
@@ -38,11 +38,19 @@ const MarketCap = () => {
             </div>
           </div>
         </div>
-        {coins.slice(0, 10).map((coin) => (
-          <CoinsList key={coin.id} coin={coin} />
-        ))}
+        {loading ? (
+          <div className="d-flex justify-content-center align-item-center my-5">
+            <div className="spinner-border text-dark my-5">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        ) : (
+          coins
+            .slice(0, 10)
+            .map((coin) => <TrendingCoins key={coin.id} coin={coin} />)
+        )}
         <div className="my-3 d-flex justify-content-center">
-          <Link to="/" className="btn btn-light">
+          <Link to="/coinsList" className="btn btn-light">
             Explore all coins{" >"}
           </Link>
         </div>

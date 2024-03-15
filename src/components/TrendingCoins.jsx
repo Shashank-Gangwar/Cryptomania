@@ -5,7 +5,7 @@ import {
   roundOff,
 } from "../store/CryptoContext";
 
-const CoinsList = ({ coin }) => {
+const TrendingCoins = ({ coin }) => {
   const { symbol } = CryptoState();
   const profit = coin.price_change_percentage_24h > 0;
   return (
@@ -58,4 +58,4 @@ const CoinsList = ({ coin }) => {
   );
 };
 
-export default CoinsList;
+export default TrendingCoins;

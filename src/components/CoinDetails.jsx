@@ -4,9 +4,13 @@ import {
   roundOff,
 } from "../store/CryptoContext";
 import style from "./CoinDetails.module.css";
+import { FiExternalLink } from "react-icons/fi";
+import { FaGithub, FaReddit } from "react-icons/fa";
+import { useState } from "react";
 
 const CoinDetails = ({ coin }) => {
-  const { currency, symbol } = CryptoState();
+  const { currency } = CryptoState();
+  const [more, setMore] = useState(false);
   const volPerMarCap =
     coin?.market_data?.total_volume[currency.toLowerCase()] /
     coin?.market_data?.fully_diluted_valuation[currency.toLowerCase()];
@@ -79,38 +83,49 @@ const CoinDetails = ({ coin }) => {
           </div>
           <div className="col ">
             <h3>Website</h3>
-            <a href={coin?.links?.homepage[0]}>{coin.id}.org</a>
+            <a href={coin?.links?.homepage[0]}>
+              {coin?.id}.org {<FiExternalLink />}
+            </a>
           </div>
           <div className="col ">
             <h3>Source Code</h3>
-            <a href={coin?.links?.repos_url.github[0]}>Github</a>
+            <a href={coin?.links?.repos_url.github[0]}>
+              <FaGithub /> Github
+            </a>
           </div>
           <div className="col ">
             <h3>Explorers</h3>
-            <a href={coin?.links?.blockchain_site[0]}>explore/coin.com</a>
+            <a href={coin?.links?.blockchain_site[0]}>
+              explore/coin.com {<FiExternalLink />}
+            </a>
           </div>
           <div className="col ">
-            <h3>White Paper</h3>
-            <a href={coin?.links?.whitepaper}>{coin.id}.org</a>
+            <h3>White Paper </h3>
+            <a href={coin?.links?.whitepaper}>
+              {coin.id}.org {<FiExternalLink />}
+            </a>
           </div>
           <div className="col ">
             <h3>Community</h3>
-            <a href={coin?.links?.subreddit_url}>Reddit</a>
+            <a href={coin?.links?.subreddit_url}>
+              <FaReddit /> Reddit
+            </a>
           </div>
         </div>
       </div>
 
       <div className="px-4 my-5 text-md-center">
         <p className=" col-lg-8 mx-auto lead">
-          Bitcoin is the world's most traded cryptocurrency, and represents the
-          largest piece of the crypto market pie. It was the first digital coin
-          and as such, remains the most famous and widely-adopted cryptocurrency
-          in the world. It's the original gangster in whose footsteps all other
-          coins follow. The birth of Bitcoin was the genesis of an entirely new
-          asset className, and a huge step away from traditional, centrally
-          controlled money. Today, many advocates believe Bitcoin will
-          facilitate the next stage for the global financial system, although
-          this — of course — remains to be seen.
+          {coin?.description?.en
+            .replace(/(<([^>]+)>)/gi, "")
+            .slice(0, more ? coin?.description?.en.length : 200)}{" "}
+          <span
+            onClick={() => setMore(!more)}
+            className="text-primary"
+            style={{ cursor: "pointer" }}
+          >
+            {!more ? "...read more" : " show less"}
+          </span>
         </p>
       </div>
     </div>

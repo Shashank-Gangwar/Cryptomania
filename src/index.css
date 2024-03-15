@@ -17,9 +17,23 @@ a{
   height: 80vh;
 }
 
-.currency{
-  font-size: 15px;
+.errorMsg{
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
+  padding: 0 10px;
+  padding-top: 150px;
+  background-image: url(../public/1710491240575.jpg);
+  height: 92vh;
+  text-align: center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  font-size: 10vmin;
+  color: rgb(198, 125, 56);
 }
+
+
+
 
 .myNavbar{
   width: 100%;
@@ -33,13 +47,9 @@ a{
 }
 
 .selectCurrency{
-  background: transparent;
-  color: white;
+  background-color: white;
   border: none;
   margin-top: 2.5px;
-}
-.selectCurrency option{
-  color: black;
 }
 
 .heroSection{
@@ -117,23 +127,6 @@ a{
     padding: 0 10vw;
 }
 
-@media screen and (max-width: 600px) {
-  .heroSection{
-    height: 100vh;
-    padding-top: 15vh;
-  }
-  .footer{
-    flex-direction: column;
-    justify-content: center;
-    padding: 0;
-  }
-}
-
-@media screen and (min-width: 980px) {
-  .carouselItem{
-    width: 18.5vw;
-  }
-}
 
 
 .rankingSection{
@@ -163,4 +156,33 @@ a{
 .coinTopDetail{
   display: flex;
   align-items: center;
+}
+
+
+
+
+@media screen and (max-width: 600px) {
+  .heroSection{
+    height: 100vh;
+    padding-top: 15vh;
+
+  }
+  .footer{
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+  }
+  .errorMsg{
+    background-image: url(../public/1710491240596.jpg);
+    
+  }
+  .heroSearchResults{
+    max-height: 100px;
+  }
+}
+
+@media screen and (min-width: 980px) {
+  .carouselItem{
+    width: 18.5vw;
+  }
 }

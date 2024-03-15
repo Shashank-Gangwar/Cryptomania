@@ -89,9 +89,9 @@ const CoinChart = ({ id, coin }) => {
         </select>
       </div>
       {fetching ? (
-        <p class="placeholder-glow d-flex justify-content-center">
+        <p className="placeholder-glow d-flex justify-content-center mt-2">
           <span
-            class="placeholder col-12 bg-success"
+            className="placeholder col-12 bg-success "
             style={{ width: "80%", height: "50vh" }}
           ></span>
         </p>

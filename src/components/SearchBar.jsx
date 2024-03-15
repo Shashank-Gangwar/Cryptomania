@@ -6,7 +6,6 @@ const SearchBar = () => {
   const [input, setInput] = useState("");
   const [items, setItems] = useState([]);
   const { coinsListData, symbol } = CryptoState();
-  console.log(coinsListData);
   const searchData = (value) => {
     const results = coinsListData.filter((coin) => {
       return value && coin && coin.id.includes(value);
@@ -27,11 +26,12 @@ const SearchBar = () => {
           className="heroSearch "
           placeholder="Search Bitcoin here"
           value={input}
-          onChange={(e) => handleChange(e.target.value)}
+          onChange={(e) => handleChange(e.target.value.toLowerCase())}
         />
         <div className="position-absolute top-100 start-50 translate-middle-x bg-light heroSearchResults">
           {items.map((coin) => (
             <Link
+              key={coin?.id}
               to={`/coin/${coin.id}`}
               className="d-flex align-items-center justify-content-between resultItem"
             >
