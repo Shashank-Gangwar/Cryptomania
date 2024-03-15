@@ -8,7 +8,7 @@
 
 }
 .underConstruction{
-    background-image: url(../../public/under-construction.jpg);
+    background-image: url(/under-construction.jpg);
     height: 20vmax;
     width: 10vmax;
     background-size: contain;

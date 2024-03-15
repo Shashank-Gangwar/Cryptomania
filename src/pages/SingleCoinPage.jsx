@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SingleCoin } from "../config/api";
 import { CryptoState, numberWithCommas } from "../store/CryptoContext";
-import CoinChart from "../components/CoinChart";
-import CoinDetails from "../components/CoinDetails";
+import CoinChart from "../components/SingleCoinComp/CoinChart";
+import CoinDetails from "../components/SingleCoinComp/CoinDetails";
 
 const SingleCoinPage = () => {
   const { id } = useParams();

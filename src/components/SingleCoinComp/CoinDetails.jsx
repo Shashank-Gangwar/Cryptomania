@@ -2,7 +2,7 @@ import {
   CryptoState,
   numberWithCommas,
   roundOff,
-} from "../store/CryptoContext";
+} from "../../store/CryptoContext";
 import style from "./CoinDetails.module.css";
 import { FiExternalLink } from "react-icons/fi";
 import { FaGithub, FaReddit } from "react-icons/fa";
@@ -87,7 +87,7 @@ const CoinDetails = ({ coin }) => {
               {coin?.id}.org {<FiExternalLink />}
             </a>
           </div>
-          <div className="col ">
+          <div className="col pe-default">
             <h3>Source Code</h3>
             <a href={coin?.links?.repos_url.github[0]}>
               <FaGithub /> Github

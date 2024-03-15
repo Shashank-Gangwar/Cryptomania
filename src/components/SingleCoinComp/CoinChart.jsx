@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import style from "./CoinChart.module.css";
-import { HistoricalChart } from "../config/api";
+import { HistoricalChart } from "../../config/api";
 import axios from "axios";
-import { CryptoState } from "../store/CryptoContext";
+import { CryptoState } from "../../store/CryptoContext";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,

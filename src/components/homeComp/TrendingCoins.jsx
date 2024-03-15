@@ -3,7 +3,7 @@ import {
   CryptoState,
   numberWithCommas,
   roundOff,
-} from "../store/CryptoContext";
+} from "../../store/CryptoContext";
 
 const TrendingCoins = ({ coin }) => {
   const { symbol } = CryptoState();

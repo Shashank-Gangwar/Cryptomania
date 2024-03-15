@@ -1,9 +1,9 @@
 import AliceCarousel from "react-alice-carousel";
-import { TrendingCoinsFetch } from "../config/api";
+import { TrendingCoinsFetch } from "../../config/api";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { CryptoState, numberWithCommas } from "../store/CryptoContext";
+import { CryptoState, numberWithCommas } from "../../store/CryptoContext";
 
 const Carousel = () => {
   const [trending, setTrending] = useState([]);

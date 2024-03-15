@@ -1,5 +1,5 @@
-import HeroSection from "../components/HeroSection";
-import MarketCap from "../components/MarketCap";
+import HeroSection from "../components/homeComp/HeroSection";
+import MarketCap from "../components/homeComp/MarketCap";
 
 const Home = () => {
   return (

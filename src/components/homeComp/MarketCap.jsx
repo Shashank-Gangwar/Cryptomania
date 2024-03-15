@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { CoinList } from "../config/api";
+import { CoinList } from "../../config/api";
 
-import { CryptoState } from "../store/CryptoContext";
+import { CryptoState } from "../../store/CryptoContext";
 import axios from "axios";
 import TrendingCoins from "./TrendingCoins";
 

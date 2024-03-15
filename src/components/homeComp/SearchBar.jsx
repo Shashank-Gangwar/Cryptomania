@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CryptoState } from "../store/CryptoContext";
+import { CryptoState } from "../../store/CryptoContext";
 import { Link } from "react-router-dom";
 
 const SearchBar = () => {
