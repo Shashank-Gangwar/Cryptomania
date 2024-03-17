@@ -1,16 +1,15 @@
 .list{
-    margin-top: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 82vh;
-
+    margin-top: 100px;
 }
-.underConstruction{
+.loading{
+    margin-top: 80px;
+    height: 80vh;
+    padding-top: 10vh;
+}
+/* .underConstruction{
     background-image: url(/under-construction.jpg);
     height: 20vmax;
     width: 10vmax;
     background-size: contain;
     background-repeat: no-repeat;
-}
+} */

@@ -20,7 +20,7 @@ const SingleCoinPage = () => {
     try {
       const { data } = await axios.get(SingleCoin(id));
       setCoin(data);
-      console.log(data);
+      // console.log(data);
       setErrorCode(-1);
     } catch (error) {
       setErrorCode(error.message);
@@ -49,7 +49,7 @@ const SingleCoinPage = () => {
             alt="twbs"
             height="150"
             width="150"
-            className="flex-shrink-0 my-0 position-relative "
+            className="flex-shrink-0 my-0 position-relative flipCoin"
           />
           <span className="position-absolute top-100 start-50   translate-middle badge  bg-dark fs-6 px-2 py-1">
             #{coin?.market_cap_rank}
@@ -63,7 +63,7 @@ const SingleCoinPage = () => {
                 alt="twbs"
                 height="80"
                 width="80"
-                className="flex-shrink-0 my-0 position-relative "
+                className="flex-shrink-0 my-0 position-relative flipCoin"
               />
               <span className="position-absolute top-100 start-50   translate-middle badge  bg-dark fs-7 px-1 py-1">
                 #{coin?.market_cap_rank}
@@ -74,17 +74,22 @@ const SingleCoinPage = () => {
               <div className="d-flex">
                 <span
                   href="#"
-                  className="btn btn-outline-secondary d-none d-md-block"
+                  className="btn btn-outline-secondary d-none d-md-block "
                 >
                   {coin?.symbol?.toUpperCase()}
                   {currency} ● Coingecko
                 </span>
 
-                <span href="#" className="btn btn-outline-secondary d-md-none">
+                <span
+                  href="#"
+                  className="btn btn-outline-black disabled d-md-none"
+                >
                   {coin?.symbol?.toUpperCase()}
                   {currency}
                 </span>
-                <span className="ms-2 btn btn-outline-success ">⬤</span>
+                <span className="ms-2 btn btn-outline-success disabled ">
+                  ⬤
+                </span>
               </div>
             </div>
           </div>

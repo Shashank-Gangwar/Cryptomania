@@ -5,7 +5,9 @@ const Crypto = createContext();
 const CryptoContext = ({ children }) => {
   const [currency, setCurrency] = useState("INR");
   const [symbol, setSymbol] = useState("₹");
-  const [coinsListData, setCoinsListData] = useState([]);
+  const [trending, setTrending] = useState([0]);
+  const [coinsListData, setCoinsListData] = useState([0]);
+  const [page, setPage] = useState("");
   useEffect(() => {
     if (currency === "INR") setSymbol("₹");
     else if (currency === "USD") setSymbol("$");
@@ -19,6 +21,10 @@ const CryptoContext = ({ children }) => {
         symbol,
         coinsListData,
         setCoinsListData,
+        trending,
+        setTrending,
+        setPage,
+        page,
       }}
     >
       {children}
@@ -31,9 +37,20 @@ export const CryptoState = () => {
 };
 
 export function numberWithCommas(x) {
-  return Number.isInteger(x)
-    ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    : x;
+  if (Number.isInteger(x)) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  } else if (Number(x)) {
+    {
+      const arr = x.toString().split(".");
+      return (
+        arr[0].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") +
+        "." +
+        arr[1].toString()
+      );
+    }
+  } else {
+    return x;
+  }
 }
 
 export function roundOff(x) {

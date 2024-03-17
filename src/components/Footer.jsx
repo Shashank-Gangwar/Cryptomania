@@ -8,17 +8,17 @@ const Footer = () => {
         style={{ width: "auto" }}
       >
         <li className="ms-3">
-          <a className="text-white" href="#">
+          <a className="text-white" href="https://twitter.com/">
             Twitter
           </a>
         </li>
         <li className="ms-3">
-          <a className="text-white" href="#">
+          <a className="text-white" href="https://www.instagram.com/">
             Instagram
           </a>
         </li>
         <li className="ms-3">
-          <a className="text-white" href="#">
+          <a className="text-white" href="https://facebook.com/">
             Facebook
           </a>
         </li>

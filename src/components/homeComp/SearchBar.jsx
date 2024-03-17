@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const SearchBar = () => {
   const [input, setInput] = useState("");
   const [items, setItems] = useState([]);
-  const { coinsListData, symbol } = CryptoState();
+  const { coinsListData, symbol, setPage } = CryptoState();
   const searchData = (value) => {
     const results = coinsListData.filter((coin) => {
       return value && coin && coin.id.includes(value);
@@ -24,7 +24,7 @@ const SearchBar = () => {
         <input
           type="text"
           className="heroSearch "
-          placeholder="Search Bitcoin here"
+          placeholder="Search Coin here"
           value={input}
           onChange={(e) => handleChange(e.target.value.toLowerCase())}
         />
@@ -32,6 +32,7 @@ const SearchBar = () => {
           {items.map((coin) => (
             <Link
               key={coin?.id}
+              onClick={() => setPage("")}
               to={`/coin/${coin.id}`}
               className="d-flex align-items-center justify-content-between resultItem"
             >

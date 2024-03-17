@@ -158,6 +158,10 @@ a{
   align-items: center;
 }
 
+.flipCoin:hover{
+  transform: rotateY(360deg);
+  transition: 2s all ease;
+}
 
 
 
@@ -177,7 +181,7 @@ a{
     
   }
   .heroSearchResults{
-    max-height: 100px;
+    max-height: 200px;
   }
 }
 

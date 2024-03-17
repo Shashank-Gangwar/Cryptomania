@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import style from "./CoinChart.module.css";
 import { HistoricalChart } from "../../config/api";
 import axios from "axios";
@@ -27,8 +27,6 @@ ChartJS.register(
   Legend
 );
 
-// export const options =
-
 const CoinChart = ({ id, coin }) => {
   const [historicData, setHistoricData] = useState({});
   const [days, setDays] = useState(1);
@@ -49,10 +47,10 @@ const CoinChart = ({ id, coin }) => {
       HistoricalChart(id, currency.toLowerCase(), days)
     );
 
-    // console.log(data);
     setHistoricData(data.prices);
     setFetching(false);
   };
+
   useEffect(() => {
     fetchHistoricData();
   }, [currency, days]);
@@ -60,7 +58,6 @@ const CoinChart = ({ id, coin }) => {
   const getGradeint = () => {
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
-
     // Create a linear gradient
     // The start gradient point is at x=20, y=0
     // The end gradient point is at x=220, y=0
@@ -74,19 +71,28 @@ const CoinChart = ({ id, coin }) => {
   return (
     <>
       <div className={` ${style.aboveClass}`}>
-        <select
-          value={days}
-          onChange={(event) => {
-            setDays(event.target.value), console.log(event.target.value);
-          }}
-          className="d-flex d-md-none form-select  "
-        >
-          <option value="1">24 hr</option>
-          <option value="7">7 Days</option>
-          <option value="30">1 Month</option>
-          <option value="200">6 Month</option>
-          <option value="365">1 Year</option>
-        </select>
+        <div className="d-flex d-md-none border rounded-3">
+          <span
+            className="ps-2 pt-2"
+            style={{ color: percent[days] > 0 ? "#089981" : "red" }}
+          >
+            {percent[days] > 0 && "+"}
+            {percent[days]}%
+          </span>
+          <select
+            value={days}
+            onChange={(event) => {
+              setDays(Number(event.target.value));
+            }}
+            className="d-inline d-md-none form-select border-white "
+          >
+            <option value="1">24 hr</option>
+            <option value="7">7 Days</option>
+            <option value="30">1 Month</option>
+            <option value="200">6 Month</option>
+            <option value="365">1 Year</option>
+          </select>
+        </div>
       </div>
       {fetching ? (
         <p className="placeholder-glow d-flex justify-content-center mt-2">
@@ -121,27 +127,27 @@ const CoinChart = ({ id, coin }) => {
             }}
             options={{
               responsive: true,
+              tension: 0,
               maintainAspectRatio: false,
               scales: {
                 yaxisLabels: {
                   position: "right",
                   grid: { display: false },
-
-                  // ticks: { display: false },
-                  // display: false,
                 },
                 xaxisLabels: {
                   grid: { display: false },
                   ticks: {
                     autoSkip: true,
-                    maxRotation: 20,
-                    minRotation: 20,
+                    autoSkipPadding: 10,
+                    align: "start",
+                    maxRotation: 0,
+                    maxTicksLimit: 11,
                   },
                 },
               },
               elements: {
                 point: {
-                  radius: 0,
+                  radius: 1,
                 },
               },
               plugins: {

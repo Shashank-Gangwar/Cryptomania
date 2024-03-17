@@ -6,7 +6,7 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import SingleCoinPage from "./pages/SingleCoinPage.jsx";
-import CoinsList from "./pages/CoinsList.jsx";
+import CoinsListPage from "./pages/CoinsListPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -23,13 +23,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/coinsList",
-        element: <CoinsList />,
+        element: <CoinsListPage />,
       },
     ],
   },
 ]);
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  // <React.StrictMode>
+  <RouterProvider router={router} />
+  // </React.StrictMode>
 );
