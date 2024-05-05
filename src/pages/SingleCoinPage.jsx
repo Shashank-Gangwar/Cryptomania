@@ -11,7 +11,7 @@ const SingleCoinPage = () => {
   const [coin, setCoin] = useState([]);
   const [errorCode, setErrorCode] = useState(-1);
   const [fetching, setFetching] = useState(false);
-  const { currency } = CryptoState();
+  const { currency, setPage } = CryptoState();
 
   const profit = coin?.market_data?.price_change_percentage_24h > 0;
 
@@ -28,6 +28,10 @@ const SingleCoinPage = () => {
       setFetching(false);
     }
   };
+
+  useEffect(() => {
+    setPage("");
+  }, []);
 
   useEffect(() => {
     fetchCoin();

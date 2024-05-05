@@ -3,6 +3,8 @@ import style from "./CoinChart.module.css";
 import { HistoricalChart } from "../../config/api";
 import axios from "axios";
 import { CryptoState } from "../../store/CryptoContext";
+
+import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -31,7 +33,7 @@ const CoinChart = ({ id, coin }) => {
   const [historicData, setHistoricData] = useState({});
   const [days, setDays] = useState(1);
   const [fetching, setFetching] = useState(false);
-  const { currency } = CryptoState();
+  const { currency, user, setUser, loggedIn } = CryptoState();
 
   const percent = {
     1: coin?.market_data?.price_change_percentage_24h.toFixed(3),
@@ -50,10 +52,38 @@ const CoinChart = ({ id, coin }) => {
     setHistoricData(data.prices);
     setFetching(false);
   };
+  useEffect(() => {
+    //console.log(user.wishlist?.includes(id));
+  }, []);
 
   useEffect(() => {
     fetchHistoricData();
   }, [currency, days]);
+
+  const handleWishlistButton = async () => {
+    await axios
+      .post(
+        "http://localhost:8000/api/v1/users/updateWishlist",
+        {
+          coin: id,
+          action: user.wishlist?.includes(id) ? "delete" : "add",
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then(function (response) {
+        //console.log("response \n", response);
+
+        setUser(response.data.data);
+        // setdeleting(false);
+        // //console.log(response.data.data);
+      })
+      .catch((error) => {
+        //console.log(error);
+        // setdeleting(false);
+      });
+  };
 
   const getGradeint = () => {
     const canvas = document.getElementById("canvas");
@@ -70,10 +100,10 @@ const CoinChart = ({ id, coin }) => {
 
   return (
     <>
-      <div className={` ${style.aboveClass}`}>
-        <div className="d-flex d-md-none border rounded-3">
+      <div className={` ${style.aboveClass} d-sm-flex flex-wrap`}>
+        <div className=" d-flex  d-md-none border rounded-3 ">
           <span
-            className="ps-2 pt-2"
+            className="ps-2 pt-2 d-inline"
             style={{ color: percent[days] > 0 ? "#089981" : "red" }}
           >
             {percent[days] > 0 && "+"}
@@ -84,7 +114,8 @@ const CoinChart = ({ id, coin }) => {
             onChange={(event) => {
               setDays(Number(event.target.value));
             }}
-            className="d-inline d-md-none form-select border-white "
+            className="d-inline form-select border-white"
+            style={{ width: "110px" }}
           >
             <option value="1">24 hr</option>
             <option value="7">7 Days</option>
@@ -93,7 +124,23 @@ const CoinChart = ({ id, coin }) => {
             <option value="365">1 Year</option>
           </select>
         </div>
+
+        {loggedIn ? (
+          <div
+            className="ms-auto btn btn-outline-light py-0 text-danger border-0"
+            onDoubleClick={handleWishlistButton}
+          >
+            <span className="text-danger fs-4 me-1 py-0">
+              {user.wishlist?.includes(id) ? <RiHeartFill /> : <RiHeartLine />}
+            </span>
+            Wishlist
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
+
+      <div></div>
       {fetching ? (
         <p className="placeholder-glow d-flex justify-content-center mt-2">
           <span

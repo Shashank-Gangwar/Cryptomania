@@ -20,15 +20,12 @@
 
 .aboveClass{
     display: flex;
-    justify-content: space-between;
     padding: 0 5vw;
     margin-bottom: 1vmin;
 
 }
 
 .aboveClass select{
-    width: 35vmin;
-    max-width: 200px;
     font-size: 1rem;
     scroll-behavior: smooth;
     

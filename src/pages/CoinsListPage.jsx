@@ -13,8 +13,23 @@ const CoinsListPage = () => {
   // console.log(coinsListData);
   return (
     <>
-      <div className={style.list}>
-        <div className="cryptoList">
+      <div>
+        <div
+          className="mb-5"
+          style={{
+            marginTop: "72px",
+            backgroundImage: `url(${"coinlist.jpeg"})`,
+            backgroundPosition: "center",
+            height: "30vh",
+            backgroundSize: "cover",
+          }}
+        >
+          <h1 className="w-100 h-100 justify-content-center text-white d-flex align-items-center bg-dark bg-opacity-75">
+            Crypto Coins
+          </h1>
+        </div>
+
+        <div className="container">
           <div className="list-group mx-3 mb-2 listItem opacity-50">
             <div className="d-flex gap-2 w-100 justify-content-between">
               <div className="ms-5">Symbol</div>
@@ -37,7 +52,7 @@ const CoinsListPage = () => {
           <div className={style.items}>
             <CoinsList coins={coinsListData} from={0} to={29} />
             {load === 1 && (
-              <CoinsList coins={coinsListData} from={30} to={60} />
+              <CoinsList coins={coinsListData} from={30} to={99} />
             )}
             <div className="d-flex justify-content-center">
               <span

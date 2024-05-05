@@ -115,7 +115,11 @@ const CoinDetails = ({ coin }) => {
       </div>
 
       <div className="px-4 my-5 text-md-center">
-        <p className=" col-lg-8 mx-auto lead">
+        <p
+          className={`${
+            !coin?.description?.en && "d-none"
+          } col-lg-8 mx-auto lead`}
+        >
           {coin?.description?.en
             .replace(/(<([^>]+)>)/gi, "")
             .slice(0, more ? coin?.description?.en.length : 200)}{" "}

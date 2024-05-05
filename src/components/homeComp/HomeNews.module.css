@@ -1,0 +1,43 @@
+#newsCard{
+    background-position: center;
+    transition: all .3s ;
+}
+
+#newsCard:hover{
+ transform: scale(1.05);
+    transition: all .3s ;
+    transition-timing-function: ease-in-out;
+
+}
+
+#newsCard:hover #arrow{
+    margin-left: 10px;
+    transition: all .3s ease-in-out;
+   }
+
+
+/* New Page */
+
+   #newsPageCardImg{
+    background-position: center;
+    transition: all .3s ;
+   }
+
+
+#newsPageCard:hover #newsPageCardImg{
+    transform: scale(1.05);
+    transition: all .3s ;
+    transition-timing-function: ease-in-out;
+
+}
+
+#newsPageCard span{
+    transition: all .3s ;
+}
+
+#newsPageCard:hover span{
+    margin-left: 10px;
+    transition: all .3s ease-in-out;
+}
+
+
