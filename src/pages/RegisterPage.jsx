@@ -82,12 +82,16 @@ const RegisterPage = () => {
     //console.log(loginDetails);
     setLoading(true);
     await axios
-      .post("http://localhost:8000/api/v1/users/register", loginDetails, {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .post(
+        "https://crytpomania-backend.onrender.com//api/v1/users/register",
+        loginDetails,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then(function (response) {
         //console.log("response \n", response);
         setLoading(false);

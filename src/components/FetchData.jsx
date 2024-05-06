@@ -34,15 +34,14 @@ const FetchData = () => {
   }, []);
 
   const fetchNews = async () => {
+    console.log("calling");
     await axios
-      .get(
-        "https://newsapi.org/v2/everything?q=cryptocurrencies OR bitcoin OR ethereum OR solana OR tether&language=en&excludeDomains=readwrite.com&sortBy=publishedAt&apiKey=f14ff4b81e6743d9931007986e765bb0"
-      )
+      .get("https://crytpomania-backend.onrender.com//api/v1/users/getnews")
       .then(function (response) {
         setNews(response.data.articles);
       })
       .catch((error) => {
-        //console.log(error);
+        console.log(error);
       });
   };
 
