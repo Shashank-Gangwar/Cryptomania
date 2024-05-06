@@ -66,7 +66,7 @@ const ProfilePage = () => {
     if (updatedEmail !== "" || updatedUserName !== "") {
       await axios
         .post(
-          "https://crytpomania-backend.onrender.com//api/v1/users/updateAccountDetails",
+          "https://crytpomania-backend.onrender.com/api/v1/users/updateAccountDetails",
           {
             userName: updatedUserName === "" ? user.userName : updatedUserName,
             email: updatedEmail,
@@ -97,8 +97,8 @@ const ProfilePage = () => {
       await axios
         .post(
           profilePic === "profilePicture.png"
-            ? "https://crytpomania-backend.onrender.com//api/v1/users/deleteAvatar"
-            : "https://crytpomania-backend.onrender.com//api/v1/users/updateAvatar",
+            ? "https://crytpomania-backend.onrender.com/api/v1/users/deleteAvatar"
+            : "https://crytpomania-backend.onrender.com/api/v1/users/updateAvatar",
           {
             avatar: profilePic,
           },
@@ -131,7 +131,7 @@ const ProfilePage = () => {
 
     await axios
       .post(
-        "https://crytpomania-backend.onrender.com//api/v1/users/updateWishlist",
+        "https://crytpomania-backend.onrender.com/api/v1/users/updateWishlist",
         {
           coin: coin,
           action: "delete",

@@ -47,7 +47,7 @@ const LoginPage = () => {
     setLoading(true);
     await axios
       .post(
-        "https://crytpomania-backend.onrender.com//api/v1/users/login",
+        "https://crytpomania-backend.onrender.com/api/v1/users/login",
         loginDetails,
         {
           withCredentials: true,
