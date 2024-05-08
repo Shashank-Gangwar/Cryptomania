@@ -33,6 +33,7 @@ const CoinChart = ({ id, coin }) => {
   const [historicData, setHistoricData] = useState({});
   const [days, setDays] = useState(1);
   const [fetching, setFetching] = useState(false);
+  const [wishlistLoader, setWishlistLoader] = useState(false);
   const { currency, user, setUser, loggedIn } = CryptoState();
 
   const percent = {
@@ -61,6 +62,7 @@ const CoinChart = ({ id, coin }) => {
   }, [currency, days]);
 
   const handleWishlistButton = async () => {
+    setWishlistLoader(true);
     await axios
       .post(
         "https://crytpomania-backend.onrender.com/api/v1/users/updateWishlist",
@@ -76,11 +78,13 @@ const CoinChart = ({ id, coin }) => {
         //console.log("response \n", response);
 
         setUser(response.data.data);
+        setWishlistLoader(false);
         // setdeleting(false);
         // //console.log(response.data.data);
       })
       .catch((error) => {
         //console.log(error);
+        setWishlistLoader(false);
         // setdeleting(false);
       });
   };
@@ -130,24 +134,37 @@ const CoinChart = ({ id, coin }) => {
             className="ms-auto btn btn-outline-light py-0 text-danger border-0"
             onDoubleClick={handleWishlistButton}
           >
-            <span className="text-danger fs-4 me-1 py-0">
-              {user.wishlist?.includes(id) ? <RiHeartFill /> : <RiHeartLine />}
-            </span>
-            Wishlist
+            {wishlistLoader ? (
+              <>
+                <span
+                  class="spinner-border spinner-border-sm "
+                  aria-hidden="true"
+                ></span>
+                <span className="fs-5"> Loading...</span>
+              </>
+            ) : (
+              <span className="text-danger fs-5 me-1 py-0">
+                {user.wishlist?.includes(id) ? (
+                  <RiHeartFill />
+                ) : (
+                  <RiHeartLine />
+                )}{" "}
+                Wishlist
+              </span>
+            )}
           </div>
         ) : (
           <></>
         )}
       </div>
 
-      <div></div>
       {fetching ? (
-        <p className="placeholder-glow d-flex justify-content-center mt-2">
-          <span
-            className="placeholder col-12 bg-success "
-            style={{ width: "80%", height: "50vh" }}
-          ></span>
-        </p>
+        <div
+          className="d-flex justify-content-center align-items-center w-100 my-5"
+          style={{ height: "40vh" }}
+        >
+          <span class="spinner-border  "></span>
+        </div>
       ) : (
         <div className={style.coinChart}>
           <Line
