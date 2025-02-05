@@ -36,7 +36,7 @@ const FetchData = () => {
   const fetchNews = async () => {
     console.log("calling");
     await axios
-      .get("https://crytpomania-backend.onrender.com/api/v1/users/getnews")
+      .get(`${import.meta.env.VITE_BASE_URL}/api/v1/users/getnews`)
       .then(function (response) {
         setNews(response.data.articles);
       })

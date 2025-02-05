@@ -14,7 +14,7 @@ const NavbarMenu = () => {
   const handleLogout = async () => {
     await axios
       .post(
-        "https://crytpomania-backend.onrender.com/api/v1/users/logout",
+        `${import.meta.env.VITE_BASE_URL}/api/v1/users/logout`,
         {},
         {
           withCredentials: true,

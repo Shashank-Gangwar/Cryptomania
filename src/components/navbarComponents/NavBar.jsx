@@ -31,7 +31,7 @@ const NavBar = () => {
   const handleCheckLoginUser = async () => {
     await axios
       .post(
-        "https://crytpomania-backend.onrender.com/api/v1/users/checklogin",
+        `${import.meta.env.VITE_BASE_URL}/api/v1/users/checklogin`,
         {},
         {
           withCredentials: true,
@@ -49,7 +49,7 @@ const NavBar = () => {
   const handleLogout = async () => {
     await axios
       .post(
-        "https://crytpomania-backend.onrender.com/api/v1/users/logout",
+        `${import.meta.env.VITE_BASE_URL}/api/v1/users/logout`,
         {},
         {
           withCredentials: true,

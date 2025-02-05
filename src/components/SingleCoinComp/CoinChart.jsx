@@ -65,7 +65,7 @@ const CoinChart = ({ id, coin }) => {
     setWishlistLoader(true);
     await axios
       .post(
-        "https://crytpomania-backend.onrender.com/api/v1/users/updateWishlist",
+        `${import.meta.env.VITE_BASE_URL}/api/v1/users/updateWishlist`,
         {
           coin: id,
           action: user.wishlist?.includes(id) ? "delete" : "add",

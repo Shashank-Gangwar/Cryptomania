@@ -47,7 +47,7 @@ const LoginPage = () => {
     setLoading(true);
     await axios
       .post(
-        "https://crytpomania-backend.onrender.com/api/v1/users/login",
+        `${import.meta.env.VITE_BASE_URL}/api/v1/users/login`,
         loginDetails,
         {
           withCredentials: true,
@@ -83,7 +83,7 @@ const LoginPage = () => {
         <Loader />
       </div>
 
-      <div className="d-flex">
+      <div className="d-flex position-relative">
         <HeroLogin />
         <div
           className="d-flex align-items-center py-4 bg-body-tertiary"
@@ -93,7 +93,13 @@ const LoginPage = () => {
             className="w-100 mx-5 
         "
           >
-            <div className="mb-5 fs-1 text-center">
+            {/* <button className="position-absolute top-10 end-0 me-10 border-none">
+              x
+            </button> */}
+            <div
+              className="mb-5 fs-1 text-center "
+              onClick={() => navigate("/")}
+            >
               Crypto<span className="text-light bg-dark ">Mania</span>
             </div>
             {/* Form */}

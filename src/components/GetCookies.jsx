@@ -7,7 +7,7 @@ const GetCookies = () => {
   const handlefunction = async (event) => {
     event.preventDefault();
     const email = emailRef.current.value;
-    // await fetch("https://crytpomania-backend.onrender.com/api/v1/users/fetchCookies", {
+    // await fetch(`${import.meta.env.VITE_BASE_URL}/api/v1/users/fetchCookies`, {
     //   method: "POST",
     //   headers: {
     //     "Content-Type": "application/json",
@@ -24,7 +24,7 @@ const GetCookies = () => {
 
     await axios
       .post(
-        "https://crytpomania-backend.onrender.com/api/v1/users/fetchCookies",
+        `${import.meta.env.VITE_BASE_URL}/api/v1/users/fetchCookies`,
         { email: email },
         {
           withCredentials: true,
@@ -33,7 +33,7 @@ const GetCookies = () => {
       .then(function (response) {
         ////console.log("response \n", response);
       })
-      .catch((error) => //console.log(error));
+      .catch((error) => console.log(error)); //console.log(error));
 
     //     // navigate("/");
   };
